@@ -108,10 +108,12 @@ visualize_network<-function(data,select_group=NULL,select_tooltip="None",
   if(clust_method!="None"){
     print(" ------ re-execution of the clustering ------")
     igraph_network<-gen_network_obj(as.data.frame(data$edges))
+    gc()
     data_new_groups<-get_groups_based_on_clustering(igraph_network,method=clust_method)
     igraph_network<-igraph_network %>% set_vertex_attr(name="color",
                                                        index = vertex_attr(igraph_network)$name,
                                                        value = data_new_groups$final_col_vec)
+    gc()
     data <- gen_visnetwork_data(igraph_network)
   }
   gc()

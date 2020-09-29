@@ -23,19 +23,22 @@ gen_visnetwork_data<-function(igraph_network){
   title_column<-paste(as.character(data$edges$coefficient[]),as.character(data$edges$logpvalue[]),sep=",")
   data$edges$title<-factor(title_column)
   #---------------------------- add physics column -----------------------------------------------
+  print("----- add physics column ---")
   # deactivate physiscs for negative edges
   physics_vec<-rep(T,nrow(data$edges))
   inds<-which(data$edges$coefficient<0)
   physics_vec[inds]<-F
   data$edges$physics<-physics_vec
   #---------------------------- add hidden column -----------------------------------------------
+  print("---- add hidden column -----")
   # hidden = T for negative edges by default
   hidden_vec<-rep(F,nrow(data$edges))
   inds<-which(data$edges$coefficient<0)
   hidden_vec[inds]<-T
   data$edges$hidden<-hidden_vec
-  print("Done")
+  gc()
   # ----------------------- convert data to ffdf ------------------------------------------------
+  print("------ converting data to ffdf ---------")
   data$edges$from<-factor(data$edges$from)
   data$edges$to<-factor(data$edges$to)
   data$edges$color<-factor(data$edges$color)
@@ -56,5 +59,6 @@ gen_visnetwork_data<-function(igraph_network){
                    physics=ff(data$edges$physics),hidden=ff(data$edges$hidden))
   data<-list(nodes=data_nodes,edges=data_edges)
   gc()
+  print("Done")
   return(data)
 }
