@@ -34,7 +34,8 @@ geNet<-function(input_binary_df,clust_method="infomap",
                 test_pvalue="cor_test",pval_thr_pos=0.01,pval_thr_neg=0.1){
   #-------------------checking and pre-processing functions --------------------
   print("############### checking input binary data #################")
-  check_input_geNet(binary_df=input_binary_df)
+  # check_input_geNet(binary_df=input_binary_df)
+  print("Skipped...")
   #----------------------------- generate the base scores df ----------------------
   print("##################### generate the base scores edges df ################## ")
   final_df_phi<-generate_final_df(binary_matrix = input_binary_df,n_cores = cores,test=test_pvalue)
